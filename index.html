@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fractured Horizons — Aryan Ved</title>
+  <meta name="description" content="Official reading site for Aryan Ved's fantasy series 'Fractured Horizons'. Read chapters, switch themes, and follow updates." />
+  <meta property="og:title" content="Fractured Horizons — Aryan Ved" />
+  <meta property="og:description" content="Official reading site for Aryan Ved's fantasy series 'Fractured Horizons'." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📘</text></svg>">
+  <style>
+    :root{
+      --bg: #0b1020;           /* dark slate */
+      --bg-soft:#0f172a;
+      --panel:#111827;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --brand:#60a5fa;
+      --accent:#a78bfa;
+      --ring: rgba(96,165,250,.4);
+      --card:#0b1220;
+      --border:#1f2937;
+    }
+    .light{ /* light theme overrides */
+      --bg:#ffffff; --bg-soft:#f8fafc; --panel:#ffffff; --text:#0f172a; --muted:#475569; --brand:#1d4ed8; --accent:#6d28d9; --ring: rgba(37,99,235,.25); --card:#ffffff; --border:#e2e8f0;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+      color:var(--text); display:flex; flex-direction:column; min-height:100vh;
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{
+      position:sticky; top:0; z-index:10; backdrop-filter:saturate(140%) blur(8px);
+      background: color-mix(in oklab, var(--bg-soft) 80%, transparent);
+      border-bottom:1px solid var(--border);
+    }
+    .container{max-width:1100px; margin:0 auto; padding:16px}
+    .row{display:grid; grid-template-columns: 300px 1fr; gap:18px}
+    @media (max-width: 900px){.row{grid-template-columns:1fr}}
+
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{width:36px; height:36px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(135deg,var(--brand),var(--accent)); box-shadow:0 8px 24px -12px var(--brand)}
+    .title{font-weight:800; letter-spacing:.4px}
+    .sub{font-size:.9rem; color:var(--muted)}
+
+    .toolbar{display:flex; gap:8px; align-items:center}
+    .btn{border:1px solid var(--border); background:var(--panel); color:var(--text); padding:10px 12px; border-radius:14px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 6px 20px -14px black}
+    .btn:hover{outline:2px solid var(--ring)}
+    .btn.small{padding:8px 10px; border-radius:12px; font-size:.9rem}
+
+    .card{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:0 12px 30px -20px black}
+    .panel{padding:14px}
+
+    .search{display:flex; gap:8px; margin-bottom:10px}
+    .search input{flex:1; padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:var(--panel); color:var(--text)}
+
+    .toc{max-height:calc(100vh - 210px); overflow:auto; padding-right:4px}
+    .toc a{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:10px; border-radius:12px; border:1px solid transparent}
+    .toc a:hover{background:color-mix(in oklab, var(--panel) 70%, transparent)}
+    .toc a.active{border-color:var(--brand); background:color-mix(in oklab, var(--panel) 85%, transparent)}
+    .pill{font-size:.75rem; color:var(--muted)}
+
+    .reader{padding:20px 22px}
+    .chapter-title{margin:0 0 8px 0; font-size:clamp(1.4rem, 2vw + .8rem, 2.2rem)}
+    .meta{color:var(--muted); font-size:.9rem; display:flex; gap:12px; flex-wrap:wrap}
+    .chapter-body{line-height:1.7; font-size:1.05rem; margin-top:16px; white-space:pre-wrap}
+
+    .reader-toolbar{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+
+    footer{margin-top:auto; border-top:1px solid var(--border); color:var(--muted)}
+    .foot{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between}
+
+    .notice{border:1px dashed var(--border); padding:10px 12px; border-radius:12px; background:color-mix(in oklab, var(--panel) 80%, transparent); color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:12px">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">⚝</div>
+        <div>
+          <div class="title">Fractured Horizons</div>
+          <div class="sub">by Aryan Ved</div>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="btn small" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">🌗 Theme</button>
+        <a class="btn small" id="downloadSite" href="#" download="FracturedHorizons-site.html" title="Download a backup copy">⬇️ Backup</a>
+        <a class="btn small" href="mailto:aryanvedwrites@gmail.com" title="Contact">✉️ Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="row">
+      <!-- Left: TOC / Search -->
+      <aside class="card panel">
+        <div class="search">
+          <input id="search" type="search" placeholder="Search chapters… (title & content)" />
+          <button class="btn small" id="clearSearch" title="Clear search">✖</button>
+        </div>
+        <div class="notice" style="margin-bottom:10px">
+          Tip: This is a single-file site. Edit the <strong>CHAPTERS_DATA</strong> in the code to paste your Prologue & Chapter 1. Then upload this file to GitHub Pages.
+        </div>
+        <nav id="toc" class="toc"></nav>
+      </aside>
+
+      <!-- Right: Reader -->
+      <section class="card reader" id="reader">
+        <h1 class="chapter-title" id="chapterTitle">Welcome 👋</h1>
+        <div class="meta" id="chapterMeta"></div>
+        <div class="reader-toolbar">
+          <button class="btn small" id="prevBtn" disabled>⬅ Prev</button>
+          <button class="btn small" id="nextBtn" disabled>Next ➡</button>
+          <button class="btn small" id="copyLink">🔗 Copy Link</button>
+          <button class="btn small" id="printBtn">🖨 Print</button>
+          <button class="btn small" id="downloadBtn">📄 Download .txt</button>
+        </div>
+        <article class="chapter-body" id="chapterBody"></article>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div>© <span id="year"></span> Aryan Ved. All rights reserved.</div>
+      <div>Made with ❤️ — <a href="#" id="rssLink" title="RSS feed (auto)" rel="alternate">RSS</a></div>
+    </div>
+  </footer>
+
+  <script>
+  // ------------------------
+  //  SITE DATA (EDIT BELOW)
+  // ------------------------
+  const SITE = {
+    seriesTitle: "Fractured Horizons",
+    author: "Aryan Ved",
+    email: "aryanvedwrites@gmail.com",
+  };
+
+  // Paste your chapters here. Keep id unique and slug-safe.
+  // Replace PLACEHOLDER text with your actual prose.
+  const CHAPTERS_DATA = [
+    {
+      id: "prologue",
+      title: "Prologue: City of Solivana",
+      summary: "A serene, futuristic city hides fractures between light and shadow.",
+      published: "2025-08-21",
+      content: `PASTE_YOUR_PROLOGUE_HERE\n\nExample placeholder — delete me:\nSolivana breathed like a living engine, gardens humming with silent turbines as moonlight stitched silver seams across glass towers. On the edge of District Harit, a boy watched the wind bend the prayer flags and wondered why the silence felt rehearsed.`
+    },
+    {
+      id: "chapter-1",
+      title: "Chapter 1: Ember and Iron",
+      summary: "Prakash makes a choice that pulls him into the unseen.",
+      published: "2025-08-21",
+      content: `PASTE_YOUR_CHAPTER_1_HERE\n\nExample placeholder — delete me:\nPrakash tightened the bolt until the steel sang. The machine answered with a tremor, a promise, and then the lights of Solivana blinked — once, twice — like a giant eye trying to wake.`
+    }
+  ];
+
+  // ------------------------
+  //  UTILITIES
+  // ------------------------
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
+  const fmtDate = iso => new Date(iso).toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'});
+  const slugToHash = id => `#/${encodeURIComponent(id)}`;
+  const hashToId = () => decodeURIComponent(location.hash.replace(/^#\//, '')) || CHAPTERS_DATA[0]?.id;
+  const readingTime = txt => Math.max(1, Math.round(txt.split(/\s+/).filter(Boolean).length / 220));
+  const escapeHtml = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+  // ------------------------
+  //  THEME
+  // ------------------------
+  const THEME_KEY = 'fh-theme';
+  function applyTheme(t){
+    document.documentElement.classList.toggle('light', t === 'light');
+    localStorage.setItem(THEME_KEY, t);
+  }
+  function initTheme(){
+    const saved = localStorage.getItem(THEME_KEY);
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    applyTheme(saved || (prefersLight ? 'light' : 'dark'));
+  }
+
+  // ------------------------
+  //  RENDERING
+  // ------------------------
+  function renderTOC(filter=""){
+    const toc = $('#toc');
+    toc.innerHTML = '';
+    const q = filter.trim().toLowerCase();
+    CHAPTERS_DATA
+      .filter(c => !q || c.title.toLowerCase().includes(q) || c.content.toLowerCase().includes(q))
+      .forEach(c => {
+        const a = document.createElement('a');
+        a.href = slugToHash(c.id);
+        a.innerHTML = `<span>${escapeHtml(c.title)}</span><span class="pill">${fmtDate(c.published)}</span>`;
+        if (c.id === hashToId()) a.classList.add('active');
+        toc.appendChild(a);
+      });
+    if (!toc.children.length){
+      toc.innerHTML = '<div class="notice">No results. Try a different search.</div>';
+    }
+  }
+
+  function renderChapter(id){
+    const i = CHAPTERS_DATA.findIndex(c => c.id === id);
+    const ch = CHAPTERS_DATA[i] || CHAPTERS_DATA[0];
+    if (!ch) return;
+
+    $('#chapterTitle').textContent = ch.title;
+    const meta = [];
+    meta.push(`Published • ${fmtDate(ch.published)}`);
+    meta.push(`${ch.content.split(/\s+/).filter(Boolean).length} words`);
+    meta.push(`${readingTime(ch.content)} min read`);
+    $('#chapterMeta').innerHTML = meta.map(m => `<span>${m}</span>`).join('');
+
+    $('#chapterBody').textContent = ch.content; // keep author's spacing exactly (pre-wrap)
+
+    // Prev/Next buttons
+    $('#prevBtn').disabled = i <= 0;
+    $('#nextBtn').disabled = i >= CHAPTERS_DATA.length - 1;
+    $('#prevBtn').onclick = () => { location.hash = slugToHash(CHAPTERS_DATA[Math.max(0, i-1)].id) };
+    $('#nextBtn').onclick = () => { location.hash = slugToHash(CHAPTERS_DATA[Math.min(CHAPTERS_DATA.length-1, i+1)].id) };
+
+    // Update active in TOC
+    $$('#toc a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === slugToHash(ch.id)));
+
+    // Update URL title
+    document.title = `${ch.title} — ${SITE.seriesTitle}`;
+  }
+
+  // ------------------------
+  //  ACTIONS
+  // ------------------------
+  function copyLink(){
+    const id = hashToId();
+    const url = location.origin + location.pathname + slugToHash(id);
+    navigator.clipboard.writeText(url).then(() => {
+      flash('Link copied!');
+    });
+  }
+  function downloadTxt(){
+    const id = hashToId();
+    const ch = CHAPTERS_DATA.find(c => c.id === id);
+    if (!ch) return;
+    const blob = new Blob([`${ch.title}\n\n${ch.content}`], {type:'text/plain'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${ch.id}.txt`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+  function printPage(){ window.print(); }
+  function flash(msg){
+    const el = document.createElement('div');
+    el.textContent = msg; el.style.position='fixed'; el.style.bottom='18px'; el.style.left='50%'; el.style.transform='translateX(-50%)'; el.style.padding='10px 14px'; el.style.background='var(--panel)'; el.style.border='1px solid var(--border)'; el.style.borderRadius='12px'; el.style.boxShadow='0 6px 24px -12px black'; el.style.zIndex=50;
+    document.body.appendChild(el); setTimeout(()=>el.remove(), 1500);
+  }
+
+  function makeRSS(){
+    const items = CHAPTERS_DATA.map(c => `\n<item>\n<title>${escapeHtml(c.title)}</title>\n<link>${location.origin + location.pathname + slugToHash(c.id)}</link>\n<guid isPermaLink="false">${c.id}</guid>\n<pubDate>${new Date(c.published).toUTCString()}</pubDate>\n<description>${escapeHtml(c.summary || c.content.slice(0,160))}</description>\n</item>`).join('\n');
+    const rss = `<?xml version="1.0" encoding="UTF-8" ?>\n<rss version="2.0">\n<channel>\n<title>${SITE.seriesTitle} — ${SITE.author}</title>\n<link>${location.origin + location.pathname}</link>\n<description>Updates for ${SITE.seriesTitle}</description>\n${items}\n</channel>\n</rss>`;
+    const blob = new Blob([rss], {type:'application/rss+xml'});
+    return URL.createObjectURL(blob);
+  }
+
+  // ------------------------
+  //  INIT
+  // ------------------------
+  function init(){
+    initTheme();
+    $('#year').textContent = new Date().getFullYear();
+
+    // Search
+    const search = $('#search');
+    search.addEventListener('input', () => renderTOC(search.value));
+    $('#clearSearch').onclick = () => { search.value=''; renderTOC(''); };
+
+    // Toolbar
+    $('#themeToggle').onclick = () => {
+      const isLight = document.documentElement.classList.contains('light');
+      applyTheme(isLight ? 'dark' : 'light');
+    };
+    $('#copyLink').onclick = copyLink;
+    $('#downloadBtn').onclick = downloadTxt;
+    $('#printBtn').onclick = printPage;
+
+    // Download site (backup single file)
+    $('#downloadSite').addEventListener('click', (e) => {
+      e.preventDefault();
+      const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html], {type:'text/html'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'FracturedHorizons-site.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    // RSS
+    $('#rssLink').href = makeRSS();
+
+    // Routing
+    window.addEventListener('hashchange', () => renderChapter(hashToId()));
+
+    // First paint
+    renderTOC('');
+    renderChapter(hashToId());
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+  </html>
